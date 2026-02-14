@@ -26,35 +26,37 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-green-50">
-            <div className="w-full max-w-md">
-                <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+            {/* Decorative elements */}
+            <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-sky-500 to-emerald-500 rounded-full blur-3xl opacity-10 -translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-indigo-500 to-sky-500 rounded-full blur-3xl opacity-10 translate-x-1/2 translate-y-1/2"></div>
+
+            <div className="w-full max-w-md relative z-10 px-4">
+                <div className="card-base bg-gradient-to-br from-white via-slate-50 to-white shadow-2xl p-8 border border-gray-200">
                     <div className="text-center mb-8">
-                        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-green-600 rounded-full mb-4">
-                            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
+                        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-sky-500 to-emerald-500 rounded-2xl mb-4 shadow-lg shadow-sky-500/30">
+                            <span className="text-3xl">👁️</span>
                         </div>
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">Sankara EyeCare Pro</h1>
-                        <p className="text-gray-600">Sign in to your account</p>
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">Sankara EyeCare</h1>
+                        <p className="text-gray-600 font-medium">Professional System</p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-5">
                         {error && (
-                            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                                {error}
+                            <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-start space-x-3 animate-slide-in-up">
+                                <span className="text-lg">⚠️</span>
+                                <p className="text-sm font-medium">{error}</p>
                             </div>
                         )}
 
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 focus:bg-white transition bg-gray-50 placeholder-gray-400"
                                 placeholder="admin@sankara.local"
                             />
                         </div>
@@ -66,7 +68,7 @@ export default function LoginPage() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 focus:bg-white transition bg-gray-50 placeholder-gray-400"
                                 placeholder="••••••••"
                             />
                         </div>
@@ -74,15 +76,24 @@ export default function LoginPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-gradient-to-r from-blue-600 to-green-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-green-700 focus:ring-4 focus:ring-blue-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full bg-gradient-to-r from-sky-500 to-emerald-500 text-white py-3 rounded-xl font-semibold hover:from-sky-600 hover:to-emerald-600 focus:ring-4 focus:ring-sky-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-sky-500/20 hover:shadow-lg hover:shadow-sky-600/30 active:scale-95"
                         >
-                            {loading ? 'Signing in...' : 'Sign In'}
+                            {loading ? (
+                                <span className="flex items-center justify-center space-x-2">
+                                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                    <span>Signing in...</span>
+                                </span>
+                            ) : (
+                                'Sign In'
+                            )}
                         </button>
                     </form>
 
-                    <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                        <p className="text-xs text-gray-600 text-center">
-                            <strong>Demo:</strong> admin@sankara.local / Admin@123
+                    <div className="mt-6 p-4 bg-gradient-to-r from-sky-50 to-emerald-50 rounded-xl border border-sky-200">
+                        <p className="text-xs text-gray-700 text-center">
+                            <strong className="text-sky-600">Demo Credentials:</strong>
+                            <br />
+                            <code className="text-gray-600">admin@sankara.local</code> / <code className="text-gray-600">Admin@123</code>
                         </p>
                     </div>
                 </div>
