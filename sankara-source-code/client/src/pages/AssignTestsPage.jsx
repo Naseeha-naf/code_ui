@@ -76,26 +76,28 @@ export default function AssignTestsPage() {
     }
 
     return (
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto animate-fade-in">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Assign Tests</h1>
-                <p className="text-gray-600">Select a patient and assign diagnostic tests</p>
+                <h1 className="text-4xl font-bold text-gray-900 tracking-tight">Assign Tests</h1>
+                <p className="text-gray-600 mt-2">Select a patient and assign diagnostic tests from available options.</p>
             </div>
 
             {success && (
-                <div className="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-lg">
-                    <p className="text-green-700">{success}</p>
+                <div className="mb-6 bg-gradient-to-r from-emerald-50 via-green-50 to-emerald-50 border border-emerald-300 rounded-xl p-4 flex items-start space-x-3 animate-scale-in">
+                    <span className="text-2xl flex-shrink-0">✅</span>
+                    <p className="text-emerald-700 font-medium">{success}</p>
                 </div>
             )}
 
             {error && (
-                <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
-                    <p className="text-red-700">{error}</p>
+                <div className="mb-6 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl p-4 flex items-start space-x-3 animate-slide-in-up">
+                    <span className="text-2xl flex-shrink-0">⚠️</span>
+                    <p className="text-red-700 font-medium">{error}</p>
                 </div>
             )}
 
             {patients.length === 0 ? (
-                <div className="bg-white rounded-xl shadow-lg p-12 text-center border border-gray-200">
+                <div className="card-base p-12 text-center">
                     <span className="text-6xl mb-4 block">📋</span>
                     <h3 className="text-xl font-semibold text-gray-700 mb-2">No patients awaiting test assignment</h3>
                     <p className="text-gray-500">All registered patients have been assigned tests!</p>
@@ -103,27 +105,30 @@ export default function AssignTestsPage() {
             ) : (
                 <div className="grid lg:grid-cols-2 gap-6">
                     {/* Patient Selection */}
-                    <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">Select Patient</h2>
-                        <div className="space-y-3 max-h-96 overflow-y-auto">
+                    <div className="card-base p-6">
+                        <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                            <span>👥</span>
+                            <span>Select Patient</span>
+                        </h2>
+                        <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
                             {patients.map((patient) => (
                                 <div
                                     key={patient.id}
                                     onClick={() => setSelectedPatient(patient)}
                                     className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedPatient?.id === patient.id
-                                            ? 'border-blue-500 bg-blue-50'
-                                            : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+                                            ? 'border-sky-500 bg-gradient-to-r from-sky-50 to-cyan-50'
+                                            : 'border-gray-200 hover:border-sky-300 hover:bg-gray-50'
                                         }`}
                                 >
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <h3 className="font-semibold text-gray-900">{patient.name}</h3>
-                                            <p className="text-sm text-gray-600">Token: #{patient.token_number} | UHID: {patient.uhid}</p>
+                                            <p className="text-sm text-gray-600 mt-1">Token: <strong>#{patient.token_number}</strong> | UHID: {patient.uhid}</p>
                                         </div>
-                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${patient.priority_level === 'emergency' ? 'bg-red-100 text-red-700' :
-                                                patient.priority_level === 'vip' ? 'bg-purple-100 text-purple-700' :
-                                                    patient.priority_level === 'senior' ? 'bg-yellow-100 text-yellow-700' :
-                                                        'bg-blue-100 text-blue-700'
+                                        <span className={`px-2 py-1 rounded-lg text-xs font-semibold flex-shrink-0 ${patient.priority_level === 'emergency' ? 'bg-red-100 text-red-700' :
+                                                patient.priority_level === 'vip' ? 'bg-indigo-100 text-indigo-700' :
+                                                    patient.priority_level === 'senior' ? 'bg-amber-100 text-amber-700' :
+                                                        'bg-sky-100 text-sky-700'
                                             }`}>
                                             {patient.priority_level.toUpperCase()}
                                         </span>
@@ -134,14 +139,17 @@ export default function AssignTestsPage() {
                     </div>
 
                     {/* Test Selection */}
-                    <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">Select Tests</h2>
+                    <div className="card-base p-6">
+                        <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                            <span>🔬</span>
+                            <span>Select Tests</span>
+                        </h2>
 
                         {selectedPatient ? (
                             <>
-                                <div className="mb-4 p-3 bg-blue-50 rounded-lg">
-                                    <p className="text-sm text-blue-900">
-                                        <strong>Patient:</strong> {selectedPatient.name}
+                                <div className="mb-4 p-3 bg-gradient-to-r from-sky-50 to-emerald-50 rounded-lg border border-sky-200">
+                                    <p className="text-sm text-gray-700">
+                                        <strong className="text-sky-600">Patient:</strong> <span className="font-semibold">{selectedPatient.name}</span>
                                     </p>
                                 </div>
 
@@ -150,8 +158,8 @@ export default function AssignTestsPage() {
                                         <label
                                             key={test.value}
                                             className={`flex items-center justify-between p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedTests.includes(test.value)
-                                                    ? 'border-green-500 bg-green-50'
-                                                    : 'border-gray-200 hover:border-green-300 hover:bg-gray-50'
+                                                    ? 'border-emerald-500 bg-gradient-to-r from-emerald-50 to-green-50'
+                                                    : 'border-gray-200 hover:border-emerald-300 hover:bg-gray-50'
                                                 }`}
                                         >
                                             <div className="flex items-center space-x-3">
@@ -159,7 +167,7 @@ export default function AssignTestsPage() {
                                                     type="checkbox"
                                                     checked={selectedTests.includes(test.value)}
                                                     onChange={() => handleTestToggle(test.value)}
-                                                    className="w-5 h-5 text-green-600 rounded focus:ring-2 focus:ring-green-500"
+                                                    className="w-5 h-5 text-emerald-600 rounded focus:ring-2 focus:ring-emerald-500 cursor-pointer"
                                                 />
                                                 <div>
                                                     <p className="font-semibold text-gray-900">{test.label}</p>
@@ -167,7 +175,7 @@ export default function AssignTestsPage() {
                                                 </div>
                                             </div>
                                             {selectedTests.includes(test.value) && (
-                                                <span className="text-green-600">✓</span>
+                                                <span className="text-emerald-600 text-lg font-bold">✓</span>
                                             )}
                                         </label>
                                     ))}
@@ -176,7 +184,7 @@ export default function AssignTestsPage() {
                                 <button
                                     onClick={handleAssignTests}
                                     disabled={selectedTests.length === 0}
-                                    className="w-full bg-gradient-to-r from-blue-600 to-green-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-green-700 focus:ring-4 focus:ring-blue-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="w-full bg-gradient-to-r from-sky-500 to-emerald-500 text-white py-3 rounded-xl font-semibold hover:from-sky-600 hover:to-emerald-600 focus:ring-4 focus:ring-sky-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-sky-500/20 hover:shadow-lg hover:shadow-sky-600/30 active:scale-95"
                                 >
                                     Assign {selectedTests.length} Test{selectedTests.length !== 1 ? 's' : ''}
                                 </button>
@@ -184,7 +192,7 @@ export default function AssignTestsPage() {
                         ) : (
                             <div className="text-center py-12 text-gray-500">
                                 <span className="text-4xl block mb-2">👈</span>
-                                <p>Please select a patient first</p>
+                                <p className="font-medium">Please select a patient first</p>
                             </div>
                         )}
                     </div>

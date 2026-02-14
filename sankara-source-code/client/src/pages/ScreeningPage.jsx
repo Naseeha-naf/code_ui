@@ -53,20 +53,21 @@ export default function ScreeningPage() {
     }
 
     return (
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto animate-fade-in">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Screening Tests</h1>
-                <p className="text-gray-600">Manage diagnostic tests with timers</p>
+                <h1 className="text-4xl font-bold text-gray-900 tracking-tight">Screening Tests</h1>
+                <p className="text-gray-600 mt-2">Manage diagnostic tests with built-in timers and status tracking.</p>
             </div>
 
             {error && (
-                <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
-                    <p className="text-red-700">{error}</p>
+                <div className="mb-6 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl p-4 flex items-start space-x-3 animate-slide-in-up">
+                    <span className="text-2xl flex-shrink-0">⚠️</span>
+                    <p className="text-red-700 font-medium">{error}</p>
                 </div>
             )}
 
             {tests.length === 0 ? (
-                <div className="bg-white rounded-xl shadow-lg p-12 text-center border border-gray-200">
+                <div className="card-base p-12 text-center">
                     <span className="text-6xl mb-4 block">🎯</span>
                     <h3 className="text-xl font-semibold text-gray-700 mb-2">No tests in queue</h3>
                     <p className="text-gray-500">All tests are completed!</p>
@@ -75,14 +76,14 @@ export default function ScreeningPage() {
                 <div className="grid gap-6">
                     {tests.map((test) => (
                         <QueueCard key={test.id} patient={test}>
-                            <div className="mb-3">
-                                <div className="flex items-center justify-between text-sm">
-                                    <span className="text-gray-600">Test Type:</span>
-                                    <span className="font-semibold text-gray-900 uppercase">{test.test_type}</span>
+                            <div className="mb-4 grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <p className="text-gray-600 text-xs font-medium">Test Type</p>
+                                    <p className="font-semibold text-gray-900 uppercase mt-1">{test.test_type}</p>
                                 </div>
-                                <div className="flex items-center justify-between text-sm mt-1">
-                                    <span className="text-gray-600">Status:</span>
-                                    <span className={`font-semibold px-2 py-1 rounded ${test.status === 'in_progress' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'
+                                <div>
+                                    <p className="text-gray-600 text-xs font-medium">Status</p>
+                                    <span className={`inline-block font-semibold px-3 py-1 rounded-lg mt-1 ${test.status === 'in_progress' ? 'bg-gradient-to-r from-indigo-100 to-blue-100 text-indigo-700 border border-indigo-200' : 'bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 border border-gray-200'
                                         }`}>
                                         {test.status === 'in_progress' ? '▶️ In Progress' : '⏸️ Pending'}
                                     </span>
@@ -95,7 +96,7 @@ export default function ScreeningPage() {
                                 {test.status === 'pending' && (
                                     <button
                                         onClick={() => handleStartTest(test.id)}
-                                        className="flex-1 bg-gradient-to-r from-blue-600 to-green-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-green-700 transition-all"
+                                        className="flex-1 bg-gradient-to-r from-sky-500 to-emerald-500 text-white py-3 rounded-xl font-semibold hover:from-sky-600 hover:to-emerald-600 transition-all shadow-lg shadow-sky-500/20 hover:shadow-lg hover:shadow-sky-600/30 active:scale-95"
                                     >
                                         ▶️ Start Test
                                     </button>
@@ -103,7 +104,7 @@ export default function ScreeningPage() {
                                 {test.status === 'in_progress' && (
                                     <button
                                         onClick={() => handleCompleteTest(test.id)}
-                                        className="flex-1 bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 transition-all"
+                                        className="flex-1 bg-gradient-to-r from-emerald-500 to-green-600 text-white py-3 rounded-xl font-semibold hover:from-emerald-600 hover:to-green-700 transition-all shadow-lg shadow-emerald-500/20 hover:shadow-lg hover:shadow-emerald-600/30 active:scale-95"
                                     >
                                         ✅ Complete Test
                                     </button>

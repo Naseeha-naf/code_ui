@@ -55,21 +55,25 @@ export default function ConsultationPage() {
     }
 
     return (
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto animate-fade-in">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Doctor Consultation</h1>
-                <p className="text-gray-600">Manage patient consultations</p>
-                {user && <p className="text-sm text-gray-500 mt-1">Dr. {user.name}</p>}
+                <h1 className="text-4xl font-bold text-gray-900 tracking-tight">Doctor Consultation</h1>
+                <p className="text-gray-600 mt-2">Manage patient consultations and check-ups.</p>
+                {user && <p className="text-sm text-sky-600 font-medium mt-3 flex items-center space-x-2">
+                    <span className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-emerald-400 flex items-center justify-center text-white font-bold text-xs">👨</span>
+                    <span>Dr. {user.name}</span>
+                </p>}
             </div>
 
             {error && (
-                <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
-                    <p className="text-red-700">{error}</p>
+                <div className="mb-6 bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl p-4 flex items-start space-x-3 animate-slide-in-up">
+                    <span className="text-2xl flex-shrink-0">⚠️</span>
+                    <p className="text-red-700 font-medium">{error}</p>
                 </div>
             )}
 
             {patients.length === 0 ? (
-                <div className="bg-white rounded-xl shadow-lg p-12 text-center border border-gray-200">
+                <div className="card-base p-12 text-center">
                     <span className="text-6xl mb-4 block">👨‍⚕️</span>
                     <h3 className="text-xl font-semibold text-gray-700 mb-2">No patients waiting</h3>
                     <p className="text-gray-500">All consultations completed!</p>
@@ -97,18 +101,18 @@ export default function ConsultationPage() {
                                 </div>
                             </div>
 
-                            <div className={`mb-4 px-3 py-2 rounded-lg text-sm font-semibold ${patient.status === 'in_progress'
-                                    ? 'bg-blue-100 text-blue-700'
-                                    : 'bg-gray-100 text-gray-700'
+                            <div className={`mb-4 px-3 py-2 rounded-xl text-sm font-semibold inline-block ${patient.status === 'in_progress'
+                                    ? 'bg-gradient-to-r from-indigo-100 to-blue-100 text-indigo-700 border border-indigo-200'
+                                    : 'bg-gradient-to-r from-gray-100 to-gray-50 text-gray-700 border border-gray-200'
                                 }`}>
-                                Status: {patient.status === 'in_progress' ? '▶️ In Consultation' : '⏸️ Waiting'}
+                                {patient.status === 'in_progress' ? '▶️ In Consultation' : '⏸️ Waiting'}
                             </div>
 
-                            <div className="flex space-x-3">
+                            <div className="flex space-x-3 mt-4">
                                 {patient.status === 'waiting' && (
                                     <button
                                         onClick={() => handleStartConsultation(patient.id)}
-                                        className="flex-1 bg-gradient-to-r from-blue-600 to-green-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-green-700 transition-all"
+                                        className="flex-1 bg-gradient-to-r from-sky-500 to-emerald-500 text-white py-3 rounded-xl font-semibold hover:from-sky-600 hover:to-emerald-600 transition-all shadow-lg shadow-sky-500/20 hover:shadow-lg hover:shadow-sky-600/30 active:scale-95"
                                     >
                                         ▶️ Start Consultation
                                     </button>
@@ -116,7 +120,7 @@ export default function ConsultationPage() {
                                 {patient.status === 'in_progress' && (
                                     <button
                                         onClick={() => handleEndConsultation(patient.id)}
-                                        className="flex-1 bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 transition-all"
+                                        className="flex-1 bg-gradient-to-r from-emerald-500 to-green-600 text-white py-3 rounded-xl font-semibold hover:from-emerald-600 hover:to-green-700 transition-all shadow-lg shadow-emerald-500/20 hover:shadow-lg hover:shadow-emerald-600/30 active:scale-95"
                                     >
                                         ✅ End Consultation
                                     </button>
