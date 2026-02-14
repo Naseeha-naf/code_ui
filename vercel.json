@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build --workspace client",
+  "outputDirectory": "sankara-source-code/client/dist",
+  "devCommand": "npm run dev:client",
+  "installCommand": "npm install"
+}
